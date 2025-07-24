@@ -11,8 +11,6 @@ Animation_t player_idle;
 #define BASE_MOVEMENET_SPRITE_POSITION 0
 #define MOVEMENT_SPRITE_OFFSET 32
 
-#define CHARACTER_W 64
-#define CHARACTER_H 64
 
 
 SDL_Surface* character_image;
@@ -139,8 +137,8 @@ void initPlayer(const SDL_Renderer *renderer, Character_t* player, int initial_x
 	player->current_y = initial_y - sprite_offset;
 	player->previous_x = 0;
 	player->previous_y = 0;
-	player->character_width = 0;
-	player->character_height = 0;
+	player->character_width = 64;
+	player->character_height = 64;
 	player->sprite_offset = sprite_offset;
 	player->animation_step = 0;
 	player->direction = IDLE;

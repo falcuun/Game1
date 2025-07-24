@@ -10,13 +10,11 @@
 #include "Player.h"
 #include "MoveHandler.h"
 
-#define SPRITE_WIDTH  32
-#define SPRITE_HEIGHT 32
-
-
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480
 
+#define CHARACTER_W 64
+#define CHARACTER_H 64
 
 #define WINDOW_TOP_LIMIT (0)
 #define WINDOW_BOTTOM_LIMIT (WINDOW_HEIGHT) 
@@ -120,8 +118,8 @@ void drawSprite(Character_t *character)
 {
 	const SDL_FRect dst_rect = { character->current_x,
 		character->current_y,
-		64,
-		64 };
+		CHARACTER_W,
+		CHARACTER_H };
 
 	SDL_RenderClear(renderer);
 	SDL_RenderTexture(renderer,

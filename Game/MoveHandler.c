@@ -29,12 +29,12 @@ void keyboardEventHandler(SDL_Event* event)
 
 }
 
-void characterUpdateMove(Character_t* character, float delta,  MoveBounds_t const*bounds, const float base_speed)
+void characterUpdateMove(Character_t* character, float delta, MoveBounds_t const* bounds, const float base_speed)
 {
 	if (isUpKeyPressed)
 	{
 		character->current_y -= base_speed * delta;
-		if (isCharacterOutOfBoundTop(character, bounds->top))
+		if (isCharacterOutOfBoundTop(character, bounds->top - character->sprite_offset))
 		{
 
 			stickCharacterTop(character, bounds->top - character->sprite_offset);
@@ -44,10 +44,10 @@ void characterUpdateMove(Character_t* character, float delta,  MoveBounds_t cons
 	if (isDownKeyPressed)
 	{
 		character->current_y += base_speed * delta;
-		if (isCharacterOutOfBoundBottom(character, bounds->bottom + character->sprite_offset))
+		if (isCharacterOutOfBoundBottom(character, bounds->bottom - character->character_height))
 		{
 
-			stickCharacterBottom(character, bounds->bottom + character->sprite_offset);
+			stickCharacterBottom(character, bounds->bottom - character->character_height);
 		}
 		character->direction = SOUTH;
 	}
@@ -64,9 +64,9 @@ void characterUpdateMove(Character_t* character, float delta,  MoveBounds_t cons
 	if (isRightKeyPressed)
 	{
 		character->current_x += base_speed * delta;
-		if (isCharacterOutOfBoundRight(character, bounds->right + character->sprite_offset))
+		if (isCharacterOutOfBoundRight(character, bounds->right - character->character_width + character->sprite_offset))
 		{
-			stickCharacterRight(character, bounds->right + character->sprite_offset);
+			stickCharacterRight(character, bounds->right - character->character_width + character->sprite_offset);
 		}
 		character->direction = WEST;
 	}
