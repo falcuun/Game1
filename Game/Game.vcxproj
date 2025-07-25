@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CharacterUtil.c" />
+    <ClCompile Include="LoadConfig.cpp" />
     <ClCompile Include="main.c" />
     <ClCompile Include="MoveHandler.c" />
     <ClCompile Include="Player.c" />
@@ -142,8 +143,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
+    <ClInclude Include="json.hpp" />
+    <ClInclude Include="LoadConfig.h" />
     <ClInclude Include="MoveHandler.h" />
     <ClInclude Include="Player.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="player_config.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

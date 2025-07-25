@@ -1,6 +1,7 @@
 #include "Character.h"
 #include "Player.h"
 #include <SDL3_image/SDL_image.h>
+#include "LoadConfig.h"
 
 Animation_t player_animationNorth;
 Animation_t player_animationSouth;
@@ -19,75 +20,18 @@ Animation_t player_animationIdleEast;
 SDL_Surface* character_image;
 SDL_Surface* character_image_flipped;
 
-// TODO: Add a JSON with Paths to Sprites, Starting Points (x,y) and Dimensions (h,w)
-// Use the NLOHMANN (or whatever) JSON library in a CPP file and return std::string().c_str(); 
-// Or simply build the object inside the CPP file and return it for C to continue using it. 
-
-const SDL_FRect src_movement_west[8] =
-{
-	{SPRITE_BASE_POSITION, 64, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 1, 64, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 2, 64, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 3, 64, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 4, 64, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 5, 64, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 6, 64, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 7, 64, 32 ,32},
-};
-const SDL_FRect src_movement_east[8] =
-{
-	{SPRITE_BASE_POSITION, 96, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 1, 96, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 2, 96, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 3, 96, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 4, 96, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 5, 96, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 6, 96, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 7, 96, 32 ,32},
-};
-const SDL_FRect src_movement_north[8] =
-{
-	{SPRITE_POSITION_OFFSET * 7, 96, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 6, 96, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 5, 96, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 4, 96, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 3, 96, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 2, 96, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 1, 96, 32 ,32},
-	{SPRITE_BASE_POSITION , 96, 32 ,32},
-};
-const SDL_FRect src_movement_south[8] =
-{
-	{SPRITE_BASE_POSITION, 96, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 1, 96, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 2, 96, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 3, 96, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 4, 96, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 5, 96, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 6, 96, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 7, 96, 32 ,32},
-};
-const SDL_FRect src_idle_west[4] = {
-	{SPRITE_BASE_POSITION, 0 , 32, 32},
-	{SPRITE_POSITION_OFFSET * 1, 0, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 2, 0, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 3 , 0, 32 ,32},
-
-};
-
-const SDL_FRect src_idle_east[4] = {
-	{SPRITE_POSITION_OFFSET * 7, 0 , 32, 32},
-	{SPRITE_POSITION_OFFSET * 6, 0, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 5, 0, 32 ,32},
-	{SPRITE_POSITION_OFFSET * 4, 0, 32 ,32},
-
-};
+SDL_FRect* src_movement_west = NULL;
+SDL_FRect* src_movement_east = NULL;
+SDL_FRect* src_movement_north = NULL;
+SDL_FRect* src_movement_south = NULL;
+SDL_FRect* src_idle_west = NULL;
+SDL_FRect* src_idle_east = NULL;
 
 SDL_Texture* sprites[NUMBER_OF_DIRECTIONS];
 Animation_t animations[NUMBER_OF_DIRECTIONS];
 
 
-void createAnimationObject(Animation_t* animation, const SDL_FRect *frames, int frame_count, int current_frame, float frame_timer, float frame_duration)
+void createAnimationObject(Animation_t* animation, const SDL_FRect* frames, int frame_count, int current_frame, float frame_timer, float frame_duration)
 {
 	animation->frames = frames;
 	animation->frame_count = frame_count;
@@ -100,32 +44,43 @@ void createAnimationObject(Animation_t* animation, const SDL_FRect *frames, int 
 void initPlayerAnimations()
 {
 	/*==============================SPRITES WEST=======================================*/
-
+	int walk_west_frame_count = 0;
+	src_movement_west = load_animation_frames("walk_west", &walk_west_frame_count);
 	createAnimationObject(&player_animationWest, src_movement_west, 8, 0, 0, 0);
 
 	/*==============================SPRITES EAST=======================================*/
 
+	int walk_east_frame_count = 0;
+	src_movement_east = load_animation_frames("walk_east", &walk_east_frame_count);
 	createAnimationObject(&player_animationEast, src_movement_east, 8, 0, 0, 0);
 	/*==============================SPRITES NORTH=======================================*/
 
+	int walk_north_frame_count = 0;
+	src_movement_north = load_animation_frames("walk_north", &walk_north_frame_count);
 	createAnimationObject(&player_animationNorth, src_movement_north, 8, 0, 0, 0);
 
 	/*==============================SPRITES SOUTH=======================================*/
 
+	int walk_south_frame_count = 0;
+	src_movement_south = load_animation_frames("walk_south", &walk_south_frame_count);
 	createAnimationObject(&player_animationSouth, src_movement_south, 8, 0, 0, 0);
 
 	/*==============================SPRITES IDLE WEST=======================================*/
 
+	int idle_west_frame_count = 0;
+	src_idle_west = load_animation_frames("idle_west", &idle_west_frame_count);
 	createAnimationObject(&player_animationIdleWest, src_idle_west, 4, 0, 0, 0);
 
 	/*==============================SPRITES IDLE EAST=======================================*/
 
+	int idle_east_frame_count = 0;
+	src_idle_east = load_animation_frames("idle_east", &idle_east_frame_count);
 	createAnimationObject(&player_animationIdleEast, src_idle_east, 4, 0, 0, 0);
 
 	SDL_Log("Animation Initialised!");
 }
 
-void initPlayer(const SDL_Renderer *renderer, Character_t* player, int initial_x, int initial_y, int sprite_offset)
+void initPlayer(const SDL_Renderer* renderer, Character_t* player, int initial_x, int initial_y, int sprite_offset)
 {
 	player->current_x = initial_x - sprite_offset;
 	player->current_y = initial_y - sprite_offset;
@@ -175,7 +130,7 @@ void initPlayer(const SDL_Renderer *renderer, Character_t* player, int initial_x
 	SDL_Log("Player Initialised!");
 }
 
-void updateFrame(Character_t *player, float delta)
+void updateFrame(Character_t* player, float delta)
 {
 
 	player->current_animation = &animations[player->direction];

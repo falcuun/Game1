@@ -1,6 +1,6 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-
+#include "Character.h"
 
 void initPlayer(const SDL_Renderer* renderer, Character_t* player, int initial_x, int initial_y, int sprite_offset);
 void initPlayerAnimations();
