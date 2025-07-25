@@ -142,7 +142,7 @@ SDL_AppResult SDL_AppIterate(void* appstate)
 		200);
 	updateFrame(&player, delta);
 	drawSprite(&player);
-
+	SDL_Delay(7);
 	return SDL_APP_CONTINUE;
 }
 
