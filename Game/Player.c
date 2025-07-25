@@ -87,64 +87,40 @@ SDL_Texture* sprites[NUMBER_OF_DIRECTIONS];
 Animation_t animations[NUMBER_OF_DIRECTIONS];
 
 
+void createAnimationObject(Animation_t* animation, const SDL_FRect *frames, int frame_count, int current_frame, float frame_timer, float frame_duration)
+{
+	animation->frames = frames;
+	animation->frame_count = frame_count;
+	animation->current_frame = current_frame;
+	animation->frame_timer = frame_timer;
+	animation->frame_duration = frame_duration;
+}
+
+
 void initPlayerAnimations()
 {
 	/*==============================SPRITES WEST=======================================*/
 
-
-	player_animationWest.frames = src_movement_west;
-	player_animationWest.frame_count = 8;
-	player_animationWest.current_frame = 0;
-	player_animationWest.frame_timer = 0; // Unused for now.
-	player_animationWest.frame_duration = 0; // Unused for now.
+	createAnimationObject(&player_animationWest, src_movement_west, 8, 0, 0, 0);
 
 	/*==============================SPRITES EAST=======================================*/
 
-
-
-	player_animationEast.frames = src_movement_east;
-	player_animationEast.frame_count = 8;
-	player_animationEast.current_frame = 0;
-	player_animationEast.frame_timer = 0; // Unused for now.
-	player_animationEast.frame_duration = 0; // Unused for now.
-
+	createAnimationObject(&player_animationEast, src_movement_east, 8, 0, 0, 0);
 	/*==============================SPRITES NORTH=======================================*/
 
-
-
-
-	player_animationNorth.frames = src_movement_north;
-	player_animationNorth.frame_count = 8;
-	player_animationNorth.current_frame = 0;
-	player_animationNorth.frame_timer = 0; // Unused for now.
-	player_animationNorth.frame_duration = 0; // Unused for now.
+	createAnimationObject(&player_animationNorth, src_movement_north, 8, 0, 0, 0);
 
 	/*==============================SPRITES SOUTH=======================================*/
 
-
-
-	player_animationSouth.frames = src_movement_south;
-	player_animationSouth.frame_count = 8;
-	player_animationSouth.current_frame = 0;
-	player_animationSouth.frame_timer = 0; // Unused for now.
-	player_animationSouth.frame_duration = 0; // Unused for now.6
+	createAnimationObject(&player_animationSouth, src_movement_south, 8, 0, 0, 0);
 
 	/*==============================SPRITES IDLE WEST=======================================*/
 
-
-	player_animationIdleWest.frames = src_idle_west;
-	player_animationIdleWest.frame_count = 4;
-	player_animationIdleWest.current_frame = 0;
-	player_animationIdleWest.frame_timer = 0;
-	player_animationIdleWest.frame_duration = 0;
-
+	createAnimationObject(&player_animationIdleWest, src_idle_west, 4, 0, 0, 0);
 
 	/*==============================SPRITES IDLE EAST=======================================*/
-	player_animationIdleEast.frames = src_idle_east;
-	player_animationIdleEast.frame_count = 4;
-	player_animationIdleEast.current_frame = 0;
-	player_animationIdleEast.frame_timer = 0;
-	player_animationIdleEast.frame_duration = 0;
+
+	createAnimationObject(&player_animationIdleEast, src_idle_east, 4, 0, 0, 0);
 
 	SDL_Log("Animation Initialised!");
 }

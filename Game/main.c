@@ -116,7 +116,8 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
 
 void drawSprite(Character_t *character)
 {
-	const SDL_FRect dst_rect = { character->current_x,
+	const SDL_FRect dst_rect = {
+		character->current_x,
 		character->current_y,
 		SPRITE_W,
 		SPRITE_H };
