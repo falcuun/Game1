@@ -5,6 +5,67 @@
 
 #define NUMBER_OF_DIRECTIONS 8
 
+
+/*
+TODO 3:
+Add a state struct that will hold the current state of the character
+
+For example: 
+
+struct Character_State{
+	IDLING,
+	WALKING,
+	ROLLING,
+	ATTACKING,
+	DEFENDING,
+	IS_HIT
+}
+
+Each character should manage it's own state machine and it's own states. The states should change based on 
+context. 
+If moving keys are pressed Character = Walking
+If space is pressed character = Rolling
+If ctrl is pressed character = Attacking
+If alt is held down character = Defending
+If smacked character = Is hit
+
+State machine, per character, should at the very least change the current_animation based on the state itself. 
+
+Right now, animation change happens inside updateFrame. This can be renamed to updateCharacterFrame() instead. 
+
+And the handleCharacterStateMachine() should call the updateCharacterFrame() inside, at the very end after it has gone through all the logic. 
+
+
+Example state flow:
+
+IDLING -> break (from Switch) -> updateCharacterFrame(&character, delta) -> WALKING -> break -> updateCharacterFrame() -> and so on
+
+Example of state interruption:
+
+IDLING -> break -> WALKING -> gets smacked -> Jump state to IS_HIT -> break -> updateCharacterFrame()
+
+Each state should ideally check if the character is being hit, while inside that state. 
+If walking, and is hit, character should stop in the current position and play IS_HIT animation.
+
+
+State transitions should be ATOMIC and driven by input, events, or flags (e.g. is_hit).
+
+TODO 1:
+Create a structure for the Location on the map/screen. Something like
+
+struct Position{
+float x, float y
+}
+
+and then use this instead of raw x,y values per character. This should make the Character struct a bit cleaner.
+Cause it will only have :
+Position *currentPosition
+Position *previousPosition
+
+instead of 4 variabls for c_x, c_y and p_x, p_y
+
+*/
+
 typedef enum Character_Direction
 {
 	IDLE_WEST = 0,

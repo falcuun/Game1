@@ -40,7 +40,19 @@ Animation_t animations[NUMBER_OF_DIRECTIONS];
 
 void initialiseTextures(SDL_Renderer* renderer)
 {
+	/*
+	TODO 2: The Images (SDL_Surface *character_image and character_image_flipped) should NOT live inside this file. 
+			These objects need to be moved outside of this file and passed down as arguments from the main context which is loading the files. 
+			That way, this class can be made more reusable for either more players, or for adding NPCs through it. 
+	
+	Rectangles for sprites, loaded via JSON, should LIKELY also be living elsewhere and just be passed down as arguments, where the player class 
+	Just takes them as arguments. 
 
+
+	Player should NOT care what the sprites are, it should just draw the sprites it's being given. 
+	Drawing logic should also be moved to helper functions in a separate file, to allow for drawing of multiple characters or use through different threads. 
+	
+	*/
 	character_image = IMG_Load("knight.png");
 	character_image_flipped = IMG_Load("knight_flipped.png");
 
@@ -85,6 +97,10 @@ void createAnimationObject(Animation_t* animation, const SDL_FRect* frames, int 
 
 void initPlayerAnimations()
 {
+	// TODO 0: Do this in a loop instead of like this. 
+
+
+
 	/*==============================SPRITES WEST=======================================*/
 	int walk_west_frame_count = 0;
 	src_movement_west = load_animation_frames("walk_west", &walk_west_frame_count);
