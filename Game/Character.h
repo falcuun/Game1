@@ -3,14 +3,16 @@
 
 #include <SDL3/SDL.h>
 
+#define NUMBER_OF_DIRECTIONS 6
 
 typedef enum Character_Direction
 {
-	IDLE = 0,
-	NORTH = 1,
-	SOUTH = 2,
-	EAST = 3,
-	WEST = 4,
+	IDLE_WEST = 0,
+	IDLE_EAST = 1,
+	NORTH = 2,
+	SOUTH = 3,
+	EAST = 4,
+	WEST = 5,
 }Character_Direction_e;
 
 typedef struct Animation {
@@ -28,9 +30,10 @@ typedef struct Character {
 	float sprite_offset;
 	int animation_step;
 	Character_Direction_e direction;
-	// Character_Direction_e previous_direction
+	Character_Direction_e previous_direction;
 	SDL_Texture* character_texture;
-	Animation_t idle;
+	Animation_t idle_east;
+	Animation_t idle_west;
 	Animation_t walk_north;
 	Animation_t walk_south;
 	Animation_t walk_east;

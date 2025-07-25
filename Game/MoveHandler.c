@@ -31,6 +31,7 @@ void keyboardEventHandler(SDL_Event* event)
 
 void characterUpdateMove(Character_t* character, float delta, MoveBounds_t const* bounds, const float base_speed)
 {
+	character->previous_direction = character->direction;
 	if (isUpKeyPressed)
 	{
 		character->current_y -= base_speed * delta;
@@ -73,7 +74,14 @@ void characterUpdateMove(Character_t* character, float delta, MoveBounds_t const
 
 	if (!isRightKeyPressed && !isLeftKeyPressed && !isUpKeyPressed && !isDownKeyPressed)
 	{
-		character->direction = IDLE;
+		if (character->previous_direction == EAST || character->previous_direction == SOUTH)
+		{
+			character->direction = IDLE_EAST;
+		}
+		else if (character->previous_direction == WEST || character->previous_direction == NORTH)
+		{
+			character->direction = IDLE_WEST;
+		}
 	}
 
 }

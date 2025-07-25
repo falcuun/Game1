@@ -6,10 +6,13 @@ Animation_t player_animationNorth;
 Animation_t player_animationSouth;
 Animation_t player_animationEast;
 Animation_t player_animationWest;
-Animation_t player_idle;
+Animation_t player_animationIdleWest;
+Animation_t player_animationIdleEast;
 
-#define BASE_MOVEMENET_SPRITE_POSITION 0
-#define MOVEMENT_SPRITE_OFFSET 32
+#define SPRITE_BASE_POSITION 0
+#define SPRITE_POSITION_OFFSET 32
+
+#define SPRITE_SHEET_COUNT 7
 
 
 
@@ -22,58 +25,66 @@ SDL_Surface* character_image_flipped;
 
 const SDL_FRect src_movement_west[8] =
 {
-	{BASE_MOVEMENET_SPRITE_POSITION, 64, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 1, 64, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 2, 64, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 3, 64, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 4, 64, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 5, 64, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 6, 64, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 7, 64, 32 ,32},
+	{SPRITE_BASE_POSITION, 64, 32 ,32},
+	{SPRITE_POSITION_OFFSET * 1, 64, 32 ,32},
+	{SPRITE_POSITION_OFFSET * 2, 64, 32 ,32},
+	{SPRITE_POSITION_OFFSET * 3, 64, 32 ,32},
+	{SPRITE_POSITION_OFFSET * 4, 64, 32 ,32},
+	{SPRITE_POSITION_OFFSET * 5, 64, 32 ,32},
+	{SPRITE_POSITION_OFFSET * 6, 64, 32 ,32},
+	{SPRITE_POSITION_OFFSET * 7, 64, 32 ,32},
 };
 const SDL_FRect src_movement_east[8] =
 {
-	{MOVEMENT_SPRITE_OFFSET * 7, 64, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 6, 64, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 5, 64, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 4, 64, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 3, 64, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 2, 64, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 1, 64, 32 ,32},
-	{BASE_MOVEMENET_SPRITE_POSITION , 64, 32 ,32},
+	{SPRITE_POSITION_OFFSET * SPRITE_SHEET_COUNT, 64, 32 ,32},
+	{SPRITE_POSITION_OFFSET * SPRITE_SHEET_COUNT - 1, 64, 32 ,32},
+	{SPRITE_POSITION_OFFSET * SPRITE_SHEET_COUNT - 2, 64, 32 ,32},
+	{SPRITE_POSITION_OFFSET * SPRITE_SHEET_COUNT - 3, 64, 32 ,32},
+	{SPRITE_POSITION_OFFSET * SPRITE_SHEET_COUNT - 4, 64, 32 ,32},
+	{SPRITE_POSITION_OFFSET * SPRITE_SHEET_COUNT - 5, 64, 32 ,32},
+	{SPRITE_POSITION_OFFSET * SPRITE_SHEET_COUNT - 6, 64, 32 ,32},
+	{SPRITE_BASE_POSITION , 64, 32 ,32},
 };
 const SDL_FRect src_movement_north[8] =
 {
-	{MOVEMENT_SPRITE_OFFSET * 7, 96, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 6, 96, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 5, 96, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 4, 96, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 3, 96, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 2, 96, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 1, 96, 32 ,32},
-	{BASE_MOVEMENET_SPRITE_POSITION , 96, 32 ,32},
+	{SPRITE_POSITION_OFFSET * 7, 96, 32 ,32},
+	{SPRITE_POSITION_OFFSET * 6, 96, 32 ,32},
+	{SPRITE_POSITION_OFFSET * 5, 96, 32 ,32},
+	{SPRITE_POSITION_OFFSET * 4, 96, 32 ,32},
+	{SPRITE_POSITION_OFFSET * 3, 96, 32 ,32},
+	{SPRITE_POSITION_OFFSET * 2, 96, 32 ,32},
+	{SPRITE_POSITION_OFFSET * 1, 96, 32 ,32},
+	{SPRITE_BASE_POSITION , 96, 32 ,32},
 };
 const SDL_FRect src_movement_south[8] =
 {
-	{BASE_MOVEMENET_SPRITE_POSITION, 96, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 1, 96, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 2, 96, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 3, 96, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 4, 96, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 5, 96, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 6, 96, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 7, 96, 32 ,32},
+	{SPRITE_BASE_POSITION, 96, 32 ,32},
+	{SPRITE_POSITION_OFFSET * 1, 96, 32 ,32},
+	{SPRITE_POSITION_OFFSET * 2, 96, 32 ,32},
+	{SPRITE_POSITION_OFFSET * 3, 96, 32 ,32},
+	{SPRITE_POSITION_OFFSET * 4, 96, 32 ,32},
+	{SPRITE_POSITION_OFFSET * 5, 96, 32 ,32},
+	{SPRITE_POSITION_OFFSET * 6, 96, 32 ,32},
+	{SPRITE_POSITION_OFFSET * 7, 96, 32 ,32},
 };
-const SDL_FRect src_idle[4] = {
-	{BASE_MOVEMENET_SPRITE_POSITION, 0 , 32, 32},
-	{MOVEMENT_SPRITE_OFFSET * 1, 0, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 2, 0, 32 ,32},
-	{MOVEMENT_SPRITE_OFFSET * 3, 0, 32 ,32},
+const SDL_FRect src_idle_west[4] = {
+	{SPRITE_BASE_POSITION, 0 , 32, 32},
+	{SPRITE_POSITION_OFFSET * 1, 0, 32 ,32},
+	{SPRITE_POSITION_OFFSET * 2, 0, 32 ,32},
+	{SPRITE_POSITION_OFFSET * 3 , 0, 32 ,32},
 
 };
 
-SDL_Texture* sprites[5];
-Animation_t animations[5];
+const SDL_FRect src_idle_east[4] = {
+	{SPRITE_POSITION_OFFSET * 7, 0 , 32, 32},
+	{SPRITE_POSITION_OFFSET * 6, 0, 32 ,32},
+	{SPRITE_POSITION_OFFSET * 5, 0, 32 ,32},
+	{SPRITE_POSITION_OFFSET * 4, 0, 32 ,32},
+
+};
+
+SDL_Texture* sprites[NUMBER_OF_DIRECTIONS];
+Animation_t animations[NUMBER_OF_DIRECTIONS];
 
 
 void initPlayerAnimations()
@@ -118,15 +129,22 @@ void initPlayerAnimations()
 	player_animationSouth.frame_timer = 0; // Unused for now.
 	player_animationSouth.frame_duration = 0; // Unused for now.6
 
-	/*==============================SPRITES IDLE=======================================*/
+	/*==============================SPRITES IDLE WEST=======================================*/
 
 
-	player_idle.frames = src_idle;
-	player_idle.frame_count = 4;
-	player_idle.current_frame = 0;
-	player_idle.frame_timer = 0;
-	player_idle.frame_duration = 0;
+	player_animationIdleWest.frames = src_idle_west;
+	player_animationIdleWest.frame_count = 4;
+	player_animationIdleWest.current_frame = 0;
+	player_animationIdleWest.frame_timer = 0;
+	player_animationIdleWest.frame_duration = 0;
 
+
+	/*==============================SPRITES IDLE EAST=======================================*/
+	player_animationIdleEast.frames = src_idle_east;
+	player_animationIdleEast.frame_count = 4;
+	player_animationIdleEast.current_frame = 0;
+	player_animationIdleEast.frame_timer = 0;
+	player_animationIdleEast.frame_duration = 0;
 
 	SDL_Log("Animation Initialised!");
 }
@@ -141,7 +159,7 @@ void initPlayer(const SDL_Renderer *renderer, Character_t* player, int initial_x
 	player->character_height = 64;
 	player->sprite_offset = sprite_offset;
 	player->animation_step = 0;
-	player->direction = IDLE;
+	player->direction = IDLE_WEST;
 
 	character_image = IMG_Load("knight.png");
 	character_image_flipped = IMG_Load("knight_flipped.png");
@@ -150,14 +168,16 @@ void initPlayer(const SDL_Renderer *renderer, Character_t* player, int initial_x
 	sprites[NORTH] = SDL_CreateTextureFromSurface(renderer, character_image);
 	sprites[EAST] = SDL_CreateTextureFromSurface(renderer, character_image_flipped);
 	sprites[SOUTH] = SDL_CreateTextureFromSurface(renderer, character_image_flipped);
-	sprites[IDLE] = SDL_CreateTextureFromSurface(renderer, character_image);
-
-
-	initPlayerAnimations();
+	sprites[IDLE_WEST] = SDL_CreateTextureFromSurface(renderer, character_image);
+	sprites[IDLE_EAST] = SDL_CreateTextureFromSurface(renderer, character_image_flipped);
 
 
 	SDL_free(character_image);
 	SDL_free(character_image_flipped);
+
+	initPlayerAnimations();
+
+
 
 	player->character_texture = sprites[WEST];
 
@@ -165,15 +185,17 @@ void initPlayer(const SDL_Renderer *renderer, Character_t* player, int initial_x
 	player->walk_south = player_animationSouth;
 	player->walk_east = player_animationEast;
 	player->walk_west = player_animationWest;
-	player->idle = player_idle;
+	player->idle_west = player_animationIdleWest;
+	player->idle_east = player_animationIdleEast;
 
 	animations[WEST] = player->walk_west;
 	animations[NORTH] = player->walk_north;
 	animations[EAST] = player->walk_east;
 	animations[SOUTH] = player->walk_south;
-	animations[IDLE] = player->idle;
+	animations[IDLE_WEST] = player->idle_west;
+	animations[IDLE_EAST] = player->idle_east;
 
-	player->current_animation = &player->walk_west;
+	player->current_animation = &player->idle_west;
 	SDL_Log("Player Initialised!");
 }
 
